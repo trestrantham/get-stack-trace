@@ -43,7 +43,11 @@ export default async (callSite: CallSiteType): Promise<SourceCodeLocationType> =
       line: lineNumber
     });
 
-    await consumer.destroy();
+    try {
+      await consumer.destroy();
+    } catch (_) {
+      // noopt
+    }
 
     if (originalPosition.source) {
       reportedNormalisedCallSite = {
